@@ -1,49 +1,70 @@
 <template>
-  <div
-    class="relative w-full h-[500px] md:h-[1000px] overflow-hidden mt-[80px]"
-  >
-    <!-- Images du carrousel -->
+  <div class="relative w-full h-[500px] md:h-[90vh] overflow-hidden mt-[140px]">
     <div
-      class="flex transition-transform duration-700 ease-in-out will-change-transform"
-      :style="{ transform: `translateX(-${currentIndex * 100}%)` }"
-    >
-      <NuxtImg
-        v-for="(image, index) in images"
-        :key="index"
-        :src="image"
-        :alt="`Slide ${index + 1} du carrousel`"
-        format="webp"
-        :modifiers="{ fit: 'cover', width: 800, height: 600, quality: 70 }"
-        width="1200"
-        height="760"
-        sizes="(max-width: 768px) 100vw, (max-width: 1024px) 80vw, 1200px"
-        class="w-full h-full object-cover flex-shrink-0"
-        :loading="index === 0 ? 'eager' : 'lazy'"
-        :fetchpriority="index === 0 ? 'high' : 'low'"
-      />
+  class="absolute top-[45%] left-[5%] md:left-[8%] text-black italic text-2xl md:text-3xl shadow-xl leading-relaxed tracking-wide z-20 font-playfair"
+>
+  <div class="inline-block bg-white/80 px-6 py-3">
+    <span class="block pb-1 ">
+      “Nous travaillons à l’émotion
+    </span>
+    <span class="block pb-1 ">
+      pour proposer des pâtisseries inscrites
+    </span>
+    <span class="block pb-1">
+      dans la gourmandise et la modernité.“
+    </span>
+  </div>
+</div>
+
+
+
+    <div class="relative w-full h-full">
+      <div
+        class="flex transition-transform duration-700 ease-in-out will-change-transform h-full"
+        :style="{ transform: `translateX(-${currentIndex * 100}%)` }"
+      >
+        <div 
+          v-for="(image, index) in images" 
+          :key="index" 
+          class="relative w-full flex-shrink-0 aspect-[16/9] md:aspect-auto"
+        >
+          <NuxtImg
+            :src="image"
+            :alt="`Slide ${index + 1} du carrousel`"
+            format="webp"
+            :modifiers="{ fit: 'cover', width: 800, height: 600, quality: 70 }"
+            width="1200"
+            height="760"
+            sizes="(max-width: 768px) 100vw, (max-width: 1024px) 80vw, 1200px"
+            class="w-full h-full object-cover"
+            :loading="index === 0 ? 'eager' : 'lazy'"
+            :fetchpriority="index === 0 ? 'high' : 'low'"
+          />
+        </div>
+      </div>
     </div>
 
-    <!-- Boutons de navigation -->
-    <div class="absolute bottom-4 right-4 flex space-x-4 z-10">
+    <div class="absolute bottom-0 right-0 flex z-30">
       <button
-        class="bg-black/50 text-white p-3 rounded-full hover:bg-black transition"
+        class="bg-[#F5EFEA] text-black p-3 hover:bg-white transition"
         @click="prevSlide"
         @keydown.left.prevent="prevSlide"
         aria-label="Image précédente"
       >
-        ◀
+        &lt;
       </button>
       <button
-        class="bg-black/50 text-white p-3 rounded-full hover:bg-black transition"
+        class="bg-[#F5EFEA] text-black p-3 hover:bg-white transition"
         @click="nextSlide"
         @keydown.right.prevent="nextSlide"
         aria-label="Image suivante"
       >
-        ▶
+        &gt;
       </button>
     </div>
   </div>
 </template>
+
 
 <script setup>
 import { ref } from "vue";
@@ -58,7 +79,6 @@ const images = ref([
 const currentIndex = ref(0);
 let animationFrameId = null;
 
-// Changement manuel via boutons avec `requestAnimationFrame`
 const prevSlide = () => {
   cancelAnimationFrame(animationFrameId);
   animationFrameId = requestAnimationFrame(() => {
@@ -76,18 +96,8 @@ const nextSlide = () => {
 </script>
 
 <style scoped>
-/* Optimisation de la performance de l'animation */
+/* Empêche les conflits de hauteur */
 .will-change-transform {
   will-change: transform;
-}
-
-/* Prévention des Layout Shifts */
-div.relative {
-  min-height: 500px;
-}
-@media (min-width: 768px) {
-  div.relative {
-    min-height: 1000px;
-  }
 }
 </style>

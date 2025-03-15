@@ -1,31 +1,42 @@
 <template>
-  <section class="container mx-auto px-6 py-12 md:py-20">
-    <h2 class="text-5xl md:text-6xl font-bold text-gray-900 mb-8 md:mb-12 text-left">
-      Où nous trouver ?
-    </h2>
+  <section class="bg-[#E6E1DC] w-full px-6 lg:px-16 xl:px-24 py-12 md:py-20">
+    <div class="max-w-screen-xl mx-19">
+      <!-- Titre aligné comme sur la maquette -->
+      <h2 class="text-5xl md:text-6xl font-bold text-gray-900 mb-8 md:mb-12 text-left">
+        Où nous trouver ?
+      </h2>
 
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
-      <div class="w-full">
-        <NuxtImg
-          src="/map-interactive.png"
-          alt="Carte de localisation des boutiques Philippe Lugnac"
-          format="webp"
-          :modifiers="{ fit: 'inside', quality: 70 }"
-          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 1200px"
-          width="1200"
-          height="800"
-          class="w-full max-h-[500px] object-contain rounded-lg shadow-lg"
-          priority
-          preload
-        />
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+        <!-- Image de la carte bien alignée -->
+        <div class="w-full flex justify-center md:justify-start">
+          <NuxtImg
+            src="/map-interactive.webp"
+            alt="Carte de localisation des boutiques Philippe Lugnac"
+            format="webp"
+            :modifiers="{ fit: 'inside', quality: 70 }"
+            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 1200px"
+            width="1000"
+            height="700"
+            class="w-full max-w-[600px] md:max-w-[700px] object-contain"
+            priority
+            preload
+          />
+        </div>
+
+        <!-- Liste des adresses bien alignée -->
+        <ul class="space-y-6 text-left">
+          <li v-for="(lieu, index) in lieux" :key="index" class="fade-in">
+            <h3 class="text-2xl md:text-3xl font-bold text-gray-900">{{ lieu.nom }}</h3>
+            <a 
+              :href="`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(lieu.adresse)}`" 
+              target="_blank"
+              class="text-lg md:text-xl text-blue-600 hover:underline"
+            >
+              {{ lieu.adresse }}
+            </a>
+          </li>
+        </ul>
       </div>
-
-      <ul class="space-y-6">
-        <li v-for="(lieu, index) in lieux" :key="index" class="fade-in">
-          <h3 class="text-2xl md:text-3xl font-bold text-gray-900">{{ lieu.nom }}</h3>
-          <p class="text-lg md:text-xl text-gray-700">{{ lieu.adresse }}</p>
-        </li>
-      </ul>
     </div>
   </section>
 </template>

@@ -59,18 +59,6 @@ export default defineNuxtConfig({
     },
   },
 
-  tailwindcss: {
-    viewer: false,
-    exposeConfig: false,
-    config: {
-      purge: [
-        "./components/**/*.vue",
-        "./layouts/**/*.vue",
-        "./pages/**/*.vue",
-      ],
-    },
-  },
-
   app: {
     head: {
       htmlAttrs: { lang: "fr" },

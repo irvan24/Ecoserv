@@ -7,6 +7,7 @@
     <Presse />
     <Location />
     <Contact />
+    <Social/>
     <Footer />
   </div>
 </template>
@@ -19,5 +20,6 @@ import Patisseries from "@/components/Patisseries.vue";
 import Presse from "@/components/Presse.vue";
 import Location from "@/components/Location.vue";
 import Contact from "@/components/Contact.vue";
+import Social from "~/components/Social.vue";
 import Footer from '@/components/Footer.vue';
 </script>
